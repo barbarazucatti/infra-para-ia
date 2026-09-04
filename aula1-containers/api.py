@@ -51,11 +51,10 @@ def prediz(entrada: Entrada):
     # Se as probabilidades estiverem muito próximas,
     # consideramos o comentário neutro.
     if abs(probabilidades[0] - probabilidades[1]) < 0.20:
-        sentimento = "neutral"
+        sentimento = "neutro"
 
     return Saida(
         sentimento=sentimento,
         confianca=round(confianca, 4),
     )
 
-    print(modelo.classes_)
