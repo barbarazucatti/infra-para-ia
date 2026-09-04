@@ -41,9 +41,21 @@ def raiz():
 @app.post("/prediz", response_model=Saida)
 def prediz(entrada: Entrada):
     """Classifica o sentimento de uma frase em português."""
+    
     probabilidades = modelo.predict_proba([entrada.texto])[0]
     indice = probabilidades.argmax()
+
+    sentimento = modelo.classes_[indice]
+    confianca = float(probabilidades[indice])
+
+    # Se as probabilidades estiverem muito próximas,
+    # consideramos o comentário neutro.
+    if abs(probabilidades[0] - probabilidades[1]) < 0.20:
+        sentimento = "neutral"
+
     return Saida(
-        sentimento=modelo.classes_[indice],
-        confianca=round(float(probabilidades[indice]), 4),
+        sentimento=sentimento,
+        confianca=round(confianca, 4),
     )
+
+    print(modelo.classes_)
