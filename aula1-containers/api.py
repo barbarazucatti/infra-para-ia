@@ -35,7 +35,7 @@ class Saida(BaseModel):
 @app.get("/")
 def raiz():
     """Verificação de saúde: útil para saber se o container está no ar."""
-    return {"status": "ok", "servico": "api-de-sentimento", "aula": 1}
+    return {"status": "ok", "servico": "api-de-sentimento", "aula": 1, "versao": "2.0"}
 
 
 @app.post("/prediz", response_model=Saida)
